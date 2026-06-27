@@ -28,7 +28,9 @@ docx:
 		$(GPP) -DWORD -DNOW="$(shell date '+%a %d %b %Y %I:%M%p')" -x -o "$$fifo" & \
 	done; \
 	pandoc "$${FIFOS[@]}" -f markdown -t docx \
+	--lua-filter utils/lua-filters/inject-date.lua \
 	--bibliography=utils/master.bib \
+	--number-sections \
 	--citeproc --csl $(CSL) \
 	--reference-doc=$(TEMPLATE) \
 	--file-scope \
